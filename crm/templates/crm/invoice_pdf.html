@@ -21,7 +21,7 @@
     <table class="info-table">
         <tr>
             <td><strong>Client:</strong> {{ order.customer.full_name }}</td>
-            <td><strong>Date:</strong> {{ order.created_at|date:"d/m/Y" }}</td>
+            <<td><strong>Date:</strong> {{ order.created_at|date:"d/m/Y H:i" }}</td>
         </tr>
         <tr>
             <td><strong>Téléphone:</strong> {{ order.customer.phone }}</td>
