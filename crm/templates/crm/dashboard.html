@@ -157,9 +157,10 @@
                         <td>{{ customer.created_at|date:"Y-m-d H:i" }}</td>
                         <td>
                             <!-- زر الواتساب المباشر -->
-                            <a href="https://wa.me/213{{ customer.phone }}?text=مرحباً%20{{ customer.full_name }}،%20نتواصل%20معك%20من%20متجر%20Shiraz%20Decor" target="_blank" class="btn btn-sm btn-outline-success me-1" title="مراسلة عبر الواتساب">
-                                <i class="bi bi-whatsapp"></i>
-                            </a>
+                            <!-- زر الواتساب المباشر المحسّن -->
+                          <a href="https://wa.me/213{{ customer.phone|slice:'1:' }}?text=Bonjour%20{{ customer.full_name }},%20nous%20vous%20contactons%20depuis%20Shiraz%20Decor." target="_blank" class="btn btn-sm btn-outline-success me-1" title="مراسلة عبر الواتساب">
+                               <i class="bi bi-whatsapp"></i>
+                           </a>
                             <a href="{% url 'edit_customer' customer.id %}" class="btn btn-sm btn-outline-warning me-1" title="تعديل"><i class="bi bi-pencil-square"></i></a>
                             <a href="{% url 'delete_customer' customer.id %}" class="btn btn-sm btn-outline-danger" title="حذف" onclick="return confirm('هل أنت متأكد من حذف الزبون؟')"><i class="bi bi-trash-fill"></i></a>
                         </td>
