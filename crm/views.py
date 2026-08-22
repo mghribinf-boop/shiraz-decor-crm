@@ -46,6 +46,8 @@ def dashboard(request):
     shipping_count = Order.objects.filter(status='shipping').count()
     delivered_count = Order.objects.filter(status='delivered').count()
 
+    total_revenue = Order.objects.filter(status='delivered').aggregate(Sum('total_price'))['total_price__sum'] or 0
+
     lead_count = Customer.objects.filter(status='lead').count()
     active_count = Customer.objects.filter(status='active').count()
     vip_count = Customer.objects.filter(status='vip').count()
@@ -55,6 +57,7 @@ def dashboard(request):
         'orders': orders,
         'total_customers': Customer.objects.count(),
         'total_orders': Order.objects.count(),
+        'total_revenue': total_revenue,
         'customer_form': CustomerForm(),
         'order_form': OrderForm(),
         'search_query': search_query,
@@ -151,7 +154,6 @@ def export_orders_csv(request):
 def download_invoice_pdf(request, order_id):
     order = get_object_or_404(Order, id=order_id)
     
-    # قاموس تحويل حالات الطلبية إلى الفرنسية لتفادي المربعات السوداء
     status_map = {
         'pending': 'En attente',
         'shipping': 'En cours de livraison',
