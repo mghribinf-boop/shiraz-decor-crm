@@ -156,6 +156,10 @@
                         <td>{{ customer.interest|default:"--" }}</td>
                         <td>{{ customer.created_at|date:"Y-m-d H:i" }}</td>
                         <td>
+                            <!-- زر الواتساب المباشر -->
+                            <a href="https://wa.me/213{{ customer.phone }}?text=مرحباً%20{{ customer.full_name }}،%20نتواصل%20معك%20من%20متجر%20Shiraz%20Decor" target="_blank" class="btn btn-sm btn-outline-success me-1" title="مراسلة عبر الواتساب">
+                                <i class="bi bi-whatsapp"></i>
+                            </a>
                             <a href="{% url 'edit_customer' customer.id %}" class="btn btn-sm btn-outline-warning me-1" title="تعديل"><i class="bi bi-pencil-square"></i></a>
                             <a href="{% url 'delete_customer' customer.id %}" class="btn btn-sm btn-outline-danger" title="حذف" onclick="return confirm('هل أنت متأكد من حذف الزبون؟')"><i class="bi bi-trash-fill"></i></a>
                         </td>
@@ -197,6 +201,10 @@
                         <td><span class="badge bg-warning text-dark">{{ order.get_status_display }}</span></td>
                         <td>{{ order.created_at|date:"Y-m-d H:i" }}</td>
                         <td>
+                            <!-- زر تحميل الفاتورة PDF -->
+                            <a href="{% url 'download_invoice_pdf' order.id %}" class="btn btn-sm btn-outline-danger me-1" title="تحميل PDF">
+                                <i class="bi bi-file-earmark-pdf-fill"></i>
+                            </a>
                             <a href="{% url 'order_invoice' order.id %}" class="btn btn-sm btn-outline-primary me-1" target="_blank" title="طباعة الفاتورة"><i class="bi bi-printer-fill"></i></a>
                             <a href="{% url 'edit_order' order.id %}" class="btn btn-sm btn-outline-warning me-1" title="تعديل"><i class="bi bi-pencil-square"></i></a>
                             <a href="{% url 'delete_order' order.id %}" class="btn btn-sm btn-outline-danger" title="حذف" onclick="return confirm('هل أنت متأكد من حذف الطلب؟')"><i class="bi bi-trash-fill"></i></a>

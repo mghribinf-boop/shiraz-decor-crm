@@ -144,3 +144,21 @@ def export_orders_csv(request):
         writer.writerow([order.id, order.customer.full_name, order.product_details, order.total_price, order.get_status_display(), order.created_at])
 
     return response
+    from django.http import HttpResponse
+from django.template.loader import get_template
+from django.shortcuts import get_object_or_404
+from xhtml2pdf import pisa
+from .models import Order  # تأكدي من اسم المودل المستعمل للطلبيات
+
+def download_invoice_pdf(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    template = get_template('crm/invoice_pdf.html')
+    html = template.render({'order': order})
+    
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="facture_{order.id}.pdf"'
+    
+    pisa_status = pisa.CreatePDF(html, dest=response)
+    if pisa_status.err:
+        return HttpResponse('Erreur lors de la génération du PDF', status=500)
+    return response

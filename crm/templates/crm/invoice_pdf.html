@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: Helvetica, Arial, sans-serif; padding: 20px; color: #333; }
+        .header { text-align: center; border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
+        .info-table { width: 100%; margin-bottom: 20px; }
+        .items-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .items-table th, .items-table td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+        .items-table th { background-color: #f5f5f5; }
+        .total { text-align: right; margin-top: 25px; font-size: 16px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Shiraz Decor</h1>
+        <p>Facture N°: #{{ order.id }}</p>
+    </div>
+
+    <table class="info-table">
+        <tr>
+            <td><strong>Client:</strong> {{ order.client_name }}</td>
+            <td><strong>Date:</strong> {{ order.created_at|date:"d/m/Y" }}</td>
+        </tr>
+        <tr>
+            <td><strong>Téléphone:</strong> {{ order.phone }}</td>
+            <td><strong>Statut:</strong> {{ order.status }}</td>
+        </tr>
+    </table>
+
+    <table class="items-table">
+        <thead>
+            <tr>
+                <th>Produit / Service</th>
+                <th>Montant</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ order.product_name }}</td>
+                <td>{{ order.price }} DZD</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="total">
+        <p>Total à payer: {{ order.price }} DZD</p>
+    </div>
+</body>
+</html>

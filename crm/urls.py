@@ -15,4 +15,8 @@ urlpatterns = [
     # مسارات التصدير
     path('export/customers/', views.export_customers_csv, name='export_customers'),
     path('export/orders/', views.export_orders_csv, name='export_orders'),
+    urlpatterns = [
+    # ... المسارات القديمة الموجودة لديك
+    path('order/<int:order_id>/pdf/', views.download_invoice_pdf, name='download_invoice_pdf'),
+]
 ]
