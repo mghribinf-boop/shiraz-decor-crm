@@ -20,12 +20,12 @@
 
     <table class="info-table">
         <tr>
-            <td><strong>Client:</strong> {{ order.client_name }}</td>
+            <td><strong>Client:</strong> {{ order.customer.full_name }}</td>
             <td><strong>Date:</strong> {{ order.created_at|date:"d/m/Y" }}</td>
         </tr>
         <tr>
-            <td><strong>Téléphone:</strong> {{ order.phone }}</td>
-            <td><strong>Statut:</strong> {{ order.status }}</td>
+            <td><strong>Téléphone:</strong> {{ order.customer.phone }}</td>
+            <td><strong>Statut:</strong> {{ order.get_status_display }}</td>
         </tr>
     </table>
 
@@ -38,14 +38,14 @@
         </thead>
         <tbody>
             <tr>
-                <td>{{ order.product_name }}</td>
-                <td>{{ order.price }} DZD</td>
+                <td>{{ order.product_details }}</td>
+                <td>{{ order.total_price }} DZD</td>
             </tr>
         </tbody>
     </table>
 
     <div class="total">
-        <p>Total à payer: {{ order.price }} DZD</p>
+        <p>Total à payer: {{ order.total_price }} DZD</p>
     </div>
 </body>
 </html>
