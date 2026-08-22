@@ -1,27 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="utf-8">
+    <title>Facture N° #{{ order.id }}</title>
     <style>
-        body { font-family: Helvetica, Arial, sans-serif; padding: 20px; color: #333; }
-        .header { text-align: center; border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
-        .info-table { width: 100%; margin-bottom: 20px; }
-        .items-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        .items-table th, .items-table td { border: 1px solid #ccc; padding: 10px; text-align: left; }
-        .items-table th { background-color: #f5f5f5; }
-        .total { text-align: right; margin-top: 25px; font-size: 16px; font-weight: bold; }
+        @page {
+            size: a4 portrait;
+            margin: 20mm;
+        }
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            color: #000;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .header-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .header-box {
+            border-top: 2px solid #000;
+            border-bottom: 2px solid #000;
+            padding: 12px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .facture-num {
+            font-size: 13px;
+        }
+        .info-table {
+            width: 100%;
+            margin-bottom: 40px;
+            border-collapse: collapse;
+        }
+        .info-table td {
+            width: 50%;
+            padding: 12px 0;
+            vertical-align: top;
+            font-size: 13px;
+        }
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        .items-table th, .items-table td {
+            border: 1px solid #d3d3d3;
+            padding: 12px 15px;
+            text-align: left;
+            font-size: 13px;
+        }
+        .items-table th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+        .total-container {
+            text-align: right;
+            margin-top: 35px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .thank-you {
+            text-align: center;
+            margin-top: 70px;
+            font-size: 14px;
+            font-style: italic;
+            color: #444;
+        }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Shiraz Decor</h1>
-        <p>Facture N°: #{{ order.id }}</p>
+
+    <div class="header-title">Shiraz Decor</div>
+    
+    <div class="header-box">
+        <span class="facture-num">Facture N°: #{{ order.id }}</span>
     </div>
 
     <table class="info-table">
         <tr>
             <td><strong>Client:</strong> {{ order.customer.full_name }}</td>
-            <<td><strong>Date:</strong> {{ order.created_at|date:"d/m/Y H:i" }}</td>
+            <td><strong>Date:</strong> {{ order.created_at|date:"d/m/Y H:i" }}</td>
         </tr>
         <tr>
             <td><strong>Téléphone:</strong> {{ order.customer.phone }}</td>
@@ -32,8 +93,8 @@
     <table class="items-table">
         <thead>
             <tr>
-                <th>Produit / Service</th>
-                <th>Montant</th>
+                <th style="width: 70%;">Produit / Service</th>
+                <th style="width: 30%;">Montant</th>
             </tr>
         </thead>
         <tbody>
@@ -44,8 +105,13 @@
         </tbody>
     </table>
 
-    <div class="total">
-        <p>Total à payer: {{ order.total_price }} DZD</p>
+    <div class="total-container">
+        Total à payer: {{ order.total_price }} DZD
     </div>
+
+    <div class="thank-you">
+        Merci pour votre confiance ! ✨
+    </div>
+
 </body>
 </html>

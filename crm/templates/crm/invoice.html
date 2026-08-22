@@ -6,39 +6,37 @@
     <style>
         body {
             font-family: Helvetica, Arial, sans-serif;
-            color: #222;
+            color: #000;
             font-size: 13px;
-            line-height: 1.6;
+            line-height: 1.5;
             padding: 30px;
             background-color: #f8f9fa;
         }
         .invoice-card {
             background: #fff;
-            max-width: 750px;
+            max-width: 800px;
             margin: auto;
-            padding: 40px;
-            border: 1px solid #ddd;
+            padding: 50px;
+            border: 1px solid #e0e0e0;
         }
-        .header {
+        .header-title {
             text-align: center;
-            margin-bottom: 25px;
-        }
-        .header h1 {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
-            margin: 0 0 15px 0;
+            margin-bottom: 15px;
         }
-        .line {
-            border-top: 2px solid #333;
-            margin: 12px 0;
+        .header-box {
+            border-top: 2px solid #000;
+            border-bottom: 2px solid #000;
+            padding: 12px 0;
+            text-align: center;
+            margin-bottom: 40px;
         }
-        .facture-title {
+        .facture-num {
             font-size: 13px;
-            margin: 10px 0;
         }
         .info-table {
             width: 100%;
-            margin-top: 30px;
             margin-bottom: 40px;
             border-collapse: collapse;
         }
@@ -46,6 +44,7 @@
             width: 50%;
             padding: 12px 0;
             vertical-align: top;
+            font-size: 13px;
         }
         .items-table {
             width: 100%;
@@ -56,9 +55,10 @@
             border: 1px solid #d3d3d3;
             padding: 12px 15px;
             text-align: left;
+            font-size: 13px;
         }
         .items-table th {
-            background-color: #f4f4f4;
+            background-color: #f5f5f5;
             font-weight: bold;
         }
         .total-container {
@@ -67,8 +67,15 @@
             font-size: 18px;
             font-weight: bold;
         }
+        .thank-you {
+            text-align: center;
+            margin-top: 70px;
+            font-size: 14px;
+            font-style: italic;
+            color: #444;
+        }
         .actions {
-            max-width: 750px;
+            max-width: 800px;
             margin: 0 auto 20px auto;
             display: flex;
             justify-content: space-between;
@@ -99,11 +106,10 @@
     </div>
 
     <div class="invoice-card">
-        <div class="header">
-            <h1>Shiraz Decor</h1>
-            <div class="line"></div>
-            <div class="facture-title">Facture N°: #{{ order.id }}</div>
-            <div class="line"></div>
+        <div class="header-title">Shiraz Decor</div>
+        
+        <div class="header-box">
+            <span class="facture-num">Facture N°: #{{ order.id }}</span>
         </div>
 
         <table class="info-table">
@@ -134,6 +140,10 @@
 
         <div class="total-container">
             Total à payer: {{ order.total_price }} DZD
+        </div>
+
+        <div class="thank-you">
+            Merci pour votre confiance ! ✨
         </div>
     </div>
 
