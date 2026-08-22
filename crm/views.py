@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q, Sum
 from django.contrib.auth.decorators import login_required
+from django.template.loader import get_template
+from xhtml2pdf import pisa
 from .models import Customer, Order
 from .forms import CustomerForm, OrderForm
 
@@ -144,16 +146,27 @@ def export_orders_csv(request):
         writer.writerow([order.id, order.customer.full_name, order.product_details, order.total_price, order.get_status_display(), order.created_at])
 
     return response
-    from django.http import HttpResponse
-from django.template.loader import get_template
-from django.shortcuts import get_object_or_404
-from xhtml2pdf import pisa
-from .models import Order  # تأكدي من اسم المودل المستعمل للطلبيات
 
+@login_required
 def download_invoice_pdf(request, order_id):
     order = get_object_or_404(Order, id=order_id)
+    
+    # قاموس تحويل حالات الطلبية إلى الفرنسية لتفادي المربعات السوداء
+    status_map = {
+        'pending': 'En attente',
+        'shipping': 'En cours de livraison',
+        'delivered': 'Livré',
+        'cancelled': 'Annulé',
+        'قيد التجهيز': 'En cours de livraison',
+        'تم التسليم': 'Livré',
+        'قيد الانتظار': 'En attente',
+    }
+    
+    raw_status = str(order.status).lower()
+    status_fr = status_map.get(raw_status, order.get_status_display())
+
     template = get_template('crm/invoice_pdf.html')
-    html = template.render({'order': order})
+    html = template.render({'order': order, 'status_fr': status_fr})
     
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="facture_{order.id}.pdf"'
