@@ -83,8 +83,9 @@ import dj_database_url
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=600
+        default=os.getenv('DATABASE_URL', f"sqlite:///{BASE_DIR / 'db.sqlite3'}"),
+        conn_max_age=600,
+        ssl_require=False
     )
 }
 
@@ -137,19 +138,7 @@ MAILERS = {
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = 'login'
-CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com', 'https://shiraz-decor-crm.onrender.com']
-CSRF_TRUSTED_ORIGINS = [
-    'https://shiraz-decor-crm.onrender.com',
-    'https://*.onrender.com',
-]
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-CSRF_TRUSTED_ORIGINS = [
-    'https://shiraz-decor-crm.onrender.com',
-    'https://*.onrender.com',
-]
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 CSRF_TRUSTED_ORIGINS = [
     'https://shiraz-decor-crm.onrender.com',
     'https://*.onrender.com',
